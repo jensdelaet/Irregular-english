@@ -1,9 +1,15 @@
 IRREGULAR ENGLISH
 
-De app is een zelfstandige PWA.
-Gebruik:
-1. Open irregular_english.html.
-2. Op Chrome/Edge/Android kan de app via 'Installeer de app' geïnstalleerd worden.
-3. Voor volledige offline/PWA-functionaliteit moet de map via een lokale webserver of online hosting worden geopend; rechtstreeks openen als file werkt voor de quiz zelf.
+A fully English-language Progressive Web App for practicing irregular English verbs.
 
-De voortgang wordt lokaal op het apparaat opgeslagen.
+Features:
+- Beginner, Intermediate and Challenge levels
+- My mistakes
+- Daily challenge
+- Progress tracking
+- Word list and search
+- Local progress storage
+- PWA installation support
+
+GitHub Pages:
+Settings -> Pages -> Deploy from a branch -> main -> / (root).

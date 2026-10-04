@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -27,71 +27,71 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
 <body>
 <div class="app">
 <header>
-<h1>Irregular English 🇬🇧</h1><p>Oefen Engelse onregelmatige werkwoorden</p>
+<h1>Irregular English 🇬🇧</h1><p>Practice English irregular verbs</p>
 <div class="stats">
 <div class="stat"><b id="score">0</b><small>score</small></div>
-<div class="stat"><b id="streak">0</b><small>reeks</small></div>
-<div class="stat"><b id="correct">0</b><small>goed totaal</small></div>
-<div class="stat"><b id="wrong">0</b><small>fouten</small></div>
+<div class="stat"><b id="streak">0</b><small>streak</small></div>
+<div class="stat"><b id="correct">0</b><small>correct total</small></div>
+<div class="stat"><b id="wrong">0</b><small>mistakes</small></div>
 </div>
 </header>
-<div id="install"><button class="install" id="installBtn">📲 Installeer de app op dit apparaat</button></div>
+<div id="install"><button class="install" id="installBtn">📲 Install the app on this device</button></div>
 <nav>
-<button id="quizNav" class="active" onclick="view('quiz')">🎯 Oefenen</button>
-<button id="progressNav" onclick="view('progress')">📊 Voortgang</button>
-<button id="listNav" onclick="view('list')">📚 Woorden</button>
+<button id="quizNav" class="active" onclick="view('quiz')">🎯 Practice</button>
+<button id="progressNav" onclick="view('progress')">📊 Progress</button>
+<button id="listNav" onclick="view('list')">📚 Word list</button>
 </nav>
 
 <section id="quiz">
 <div class="card">
-<div class="small">Kies je niveau</div>
+<div class="small">Choose your level</div>
 <div class="levels" style="margin-top:8px">
-<button id="easy" onclick="setLevel('easy')">🟢 Basis</button>
-<button id="medium" onclick="setLevel('medium')">🟠 Gemiddeld</button>
-<button id="hard" onclick="setLevel('hard')">🔴 Uitdaging</button>
+<button id="easy" onclick="setLevel('easy')">🟢 Basic</button>
+<button id="medium" onclick="setLevel('medium')">🟠 Intermediate</button>
+<button id="hard" onclick="setLevel('hard')">🔴 Challenge</button>
 </div>
 <div class="actions">
-<button class="secondary" onclick="startMistakes()">🔁 Mijn fouten</button>
-<button class="secondary" onclick="startDaily()">⭐ Dagelijks</button>
+<button class="secondary" onclick="startMistakes()">🔁 My mistakes</button>
+<button class="secondary" onclick="startDaily()">⭐ Daily challenge</button>
 </div>
 </div>
 <div class="card">
-<span class="badge" id="mode">Basis</span>
+<span class="badge" id="mode">Basic</span>
 <div class="progress"><div class="bar" id="bar"></div></div>
 <div class="small" id="counter"></div>
 <div class="question" id="nl"></div>
 <div class="small">Infinitive: <b id="inf"></b></div>
-<p class="small">Vul de <b>Past Simple</b> en <b>Past Participle</b> in.</p>
+<p class="small">Enter the <b>Past Simple Simple</b> and <b>Past Simple Past Participle</b>.</p>
 <div class="forms">
 <div class="formbox"><label>PAST SIMPLE</label><input id="past" autocomplete="off"></div>
 <div class="formbox"><label>PAST PARTICIPLE</label><input id="part" autocomplete="off"></div>
 </div>
 <div id="feedback"></div>
 <div class="actions">
-<button class="primary" id="check" onclick="check()">Controleer</button>
-<button class="secondary" onclick="next()">Volgende</button>
+<button class="primary" id="check" onclick="check()">Check</button>
+<button class="secondary" onclick="next()">Next</button>
 </div>
 </div>
 </section>
 
 <section id="progress" class="hidden">
-<div class="card center"><div class="big" id="accuracy">0%</div><div class="small">juist beantwoord</div></div>
+<div class="card center"><div class="big" id="accuracy">0%</div><div class="small">correct answers</div></div>
 <div class="grid2">
-<div class="tile"><b id="pCorrect">0</b>Correct</div><div class="tile"><b id="pWrong">0</b>Fout</div>
-<div class="tile"><b id="pSeen">0</b>Vragen gemaakt</div><div class="tile"><b id="pStreak">0</b>Beste reeks</div>
+<div class="tile"><b id="pCorrect">0</b>Correct</div><div class="tile"><b id="pWrong">0</b>Wrong</div>
+<div class="tile"><b id="pSeen">0</b>Questions answered</div><div class="tile"><b id="pStreak">0</b>Best streak</div>
 </div>
-<div class="card" style="margin-top:14px"><h3>💡 Tip</h3><p class="small">Oefen vooral je fouten opnieuw. Korte dagelijkse sessies werken beter dan één lange sessie.</p><button class="primary" onclick="startMistakes();view('quiz')">Mijn fouten oefenen</button></div>
+<div class="card" style="margin-top:14px"><h3>💡 Tip</h3><p class="small">Practice your mistakes regularly. Short daily sessions work better than one long session.</p><button class="primary" onclick="startMistakes();view('quiz')">Practice my mistakes</button></div>
 </section>
 
 <section id="list" class="hidden">
-<div class="card"><h2>Woordenlijst</h2><input class="search" id="search" placeholder="Zoek..." oninput="renderList()">
-<table><thead><tr><th>Nederlands</th><th>Infinitive</th><th>Past</th><th>Participle</th></tr></thead><tbody id="tbody"></tbody></table></div>
+<div class="card"><h2>Word list</h2><input class="search" id="search" placeholder="Search..." oninput="renderList()">
+<table><thead><tr><th>Meaning</th><th>Infinitive</th><th>Past Simple</th><th>Past Participle</th></tr></thead><tbody id="tbody"></tbody></table></div>
 </section>
 </div>
 
 <script>
 const words=[
-["zijn","be","was/were","been"],["worden","become","became","become"],["beginnen","begin","began","begun"],["bijten","bite","bit","bitten"],["blazen","blow","blew","blown"],["breken","break","broke","broken"],["brengen","bring","brought","brought"],["bouwen","build","built","built"],["kopen","buy","bought","bought"],["vangen","catch","caught","caught"],["kiezen","choose","chose","chosen"],["komen","come","came","come"],["kosten","cost","cost","cost"],["snijden","cut","cut","cut"],["doen","do","did","done"],["tekenen","draw","drew","drawn"],["drinken","drink","drank","drunk"],["rijden","drive","drove","driven"],["eten","eat","ate","eaten"],["vallen","fall","fell","fallen"],["voelen","feel","felt","felt"],["vechten","fight","fought","fought"],["vinden","find","found","found"],["vliegen","fly","flew","flown"],["vergeten","forget","forgot","forgotten"],["krijgen","get","got","got/gotten"],["geven","give","gave","given"],["gaan","go","went","gone"],["groeien","grow","grew","grown"],["hebben","have","had","had"],["horen","hear","heard","heard"],["houden","hold","held","held"],["weten","know","knew","known"],["leren","learn","learnt/learned","learnt/learned"],["verlaten","leave","left","left"],["lenen","lend","lent","lent"],["verliezen","lose","lost","lost"],["maken","make","made","made"],["betekenen","mean","meant","meant"],["ontmoeten","meet","met","met"],["betalen","pay","paid","paid"],["zetten","put","put","put"],["lezen","read","read","read"],["rijden","ride","rode","ridden"],["rennen","run","ran","run"],["zeggen","say","said","said"],["zien","see","saw","seen"],["verkopen","sell","sold","sold"],["sturen","send","sent","sent"],["zingen","sing","sang","sung"],["zitten","sit","sat","sat"],["slapen","sleep","slept","slept"],["spreken","speak","spoke","spoken"],["staan","stand","stood","stood"],["zwemmen","swim","swam","swum"],["nemen","take","took","taken"],["onderwijzen","teach","taught","taught"],["vertellen","tell","told","told"],["denken","think","thought","thought"],["begrijpen","understand","understood","understood"],["dragen","wear","wore","worn"],["winnen","win","won","won"],["schrijven","write","wrote","written"]];
+["be","be","was/were","been"],["become","become","became","become"],["begin","begin","began","begun"],["bite","bite","bit","bitten"],["blow","blow","blew","blown"],["break","break","broke","broken"],["bring","bring","brought","brought"],["build","build","built","built"],["buy","buy","bought","bought"],["catch","catch","caught","caught"],["choose","choose","chose","chosen"],["come","come","came","come"],["cost","cost","cost","cost"],["cut","cut","cut","cut"],["do","do","did","done"],["draw","draw","drew","drawn"],["drink","drink","drank","drunk"],["drive","drive","drove","driven"],["eat","eat","ate","eaten"],["fall","fall","fell","fallen"],["feel","feel","felt","felt"],["fight","fight","fought","fought"],["find","find","found","found"],["fly","fly","flew","flown"],["forget","forget","forgot","forgotten"],["get","get","got","got/gotten"],["give","give","gave","given"],["go","go","went","gone"],["grow","grow","grew","grown"],["have","have","had","had"],["hear","hear","heard","heard"],["hold","hold","held","held"],["know","know","knew","known"],["learn","learn","learnt/learned","learnt/learned"],["leave","leave","left","left"],["lend","lend","lent","lent"],["lose","lose","lost","lost"],["make","make","made","made"],["mean","mean","meant","meant"],["meet","meet","met","met"],["pay","pay","paid","paid"],["put","put","put","put"],["read","read","read","read"],["drive","ride","rode","ridden"],["run","run","ran","run"],["say","say","said","said"],["see","see","saw","seen"],["sell","sell","sold","sold"],["send","send","sent","sent"],["sing","sing","sang","sung"],["sit","sit","sat","sat"],["sleep","sleep","slept","slept"],["speak","speak","spoke","spoken"],["stand","stand","stood","stood"],["swim","swim","swam","swum"],["take","take","took","taken"],["teach","teach","taught","taught"],["tell","tell","told","told"],["think","think","thought","thought"],["understand","understand","understood","understood"],["wear","wear","wore","worn"],["win","win","won","won"],["write","write","wrote","written"]];
 const easy=new Set(["be","become","begin","break","bring","build","buy","come","do","drink","eat","find","get","give","go","have","hear","know","make","meet","read","run","say","see","take","think","write"]);
 let level="easy",mode="normal",order=[],idx=0,answered=false,score=0,streak=0,best=0;
 let stats=JSON.parse(localStorage.getItem("ie_stats")||'{"correct":0,"wrong":0,"seen":0,"best":0}');
@@ -101,13 +101,13 @@ const norm=s=>s.trim().toLowerCase().replace(/\s+/g,"");
 function ok(v,a){return a.split("/").some(x=>norm(v)===norm(x))}
 function save(){localStorage.setItem("ie_stats",JSON.stringify(stats))}
 function pool(){if(mode==="mistakes"){let b=JSON.parse(localStorage.getItem("ie_mistakes")||"[]");return b.length?words.filter(w=>b.includes(w[1])):words} if(level==="easy")return words.filter(w=>easy.has(w[1]));if(level==="hard")return words.filter(w=>!easy.has(w[1]));return words}
-function start(){mode="normal";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent=level==="easy"?"Basis":level==="medium"?"Gemiddeld":"Uitdaging";load();update()}
+function start(){mode="normal";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent=level==="easy"?"Basic":level==="medium"?"Intermediate":"Challenge";load();update()}
 function setLevel(x){level=x;document.querySelectorAll(".levels button").forEach(b=>b.classList.remove("active"));$(x).classList.add("active");start()}
-function startMistakes(){mode="mistakes";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent="Mijn fouten";load();update()}
-function startDaily(){mode="daily";order=shuffle(words).slice(0,10);idx=0;score=0;streak=0;answered=false;$("mode").textContent="⭐ Dagelijkse uitdaging";load();update()}
-function load(){if(!order.length){$("nl").textContent="Nog geen fouten om te oefenen.";return}let w=order[idx];answered=false;$("nl").textContent=w[0];$("inf").textContent=w[1];$("counter").textContent=`Vraag ${idx+1} van ${order.length}`;$("bar").style.width=((idx+1)/order.length*100)+"%";$("past").value="";$("part").value="";$("past").disabled=false;$("part").disabled=false;$("feedback").innerHTML="";$("check").textContent="Controleer";$("past").focus()}
-function check(){if(answered)return next();let w=order[idx],good=ok($("past").value,w[2])&&ok($("part").value,w[3]);answered=true;stats.seen++;if(good){score+=10+streak;streak++;best=Math.max(best,streak);stats.correct++;stats.best=Math.max(stats.best,streak);$("feedback").innerHTML=`<div class="feedback good">✓ Goed! +${10+streak-1} punten</div>`}else{streak=0;stats.wrong++;let a=JSON.parse(localStorage.getItem("ie_mistakes")||"[]");if(!a.includes(w[1]))a.push(w[1]);localStorage.setItem("ie_mistakes",JSON.stringify(a));$("feedback").innerHTML=`<div class="feedback bad">✗ Het antwoord is <b>${w[2]}</b> – <b>${w[3]}</b></div>`}save();$("past").disabled=true;$("part").disabled=true;$("check").textContent="Volgende";update()}
-function next(){if(!answered){check();return}idx++;if(idx>=order.length){alert(`Klaar! Je score: ${score}.`);start()}else load()}
+function startMistakes(){mode="mistakes";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent="My mistakes";load();update()}
+function startDaily(){mode="daily";order=shuffle(words).slice(0,10);idx=0;score=0;streak=0;answered=false;$("mode").textContent="⭐ Daily challengee uitdaging";load();update()}
+function load(){if(!order.length){$("nl").textContent="No mistakes to practice yet.";return}let w=order[idx];answered=false;$("nl").textContent=w[0];$("inf").textContent=w[1];$("counter").textContent=`Question ${idx+1} of ${order.length}`;$("bar").style.width=((idx+1)/order.length*100)+"%";$("past").value="";$("part").value="";$("past").disabled=false;$("part").disabled=false;$("feedback").innerHTML="";$("check").textContent="Check";$("past").focus()}
+function check(){if(answered)return next();let w=order[idx],good=ok($("past").value,w[2])&&ok($("part").value,w[3]);answered=true;stats.seen++;if(good){score+=10+streak;streak++;best=Math.max(best,streak);stats.correct++;stats.best=Math.max(stats.best,streak);$("feedback").innerHTML=`<div class="feedback good">✓ Correct! +${10+streak-1} points</div>`}else{streak=0;stats.wrong++;let a=JSON.parse(localStorage.getItem("ie_mistakes")||"[]");if(!a.includes(w[1]))a.push(w[1]);localStorage.setItem("ie_mistakes",JSON.stringify(a));$("feedback").innerHTML=`<div class="feedback bad">✗ The answer is <b>${w[2]}</b> – <b>${w[3]}</b></div>`}save();$("past").disabled=true;$("part").disabled=true;$("check").textContent="Next";update()}
+function next(){if(!answered){check();return}idx++;if(idx>=order.length){alert(`Finished! Your score: ${score}.`);start()}else load()}
 function update(){$("score").textContent=score;$("streak").textContent=streak;$("correct").textContent=stats.correct;$("wrong").textContent=stats.wrong;$("pCorrect").textContent=stats.correct;$("pWrong").textContent=stats.wrong;$("pSeen").textContent=stats.seen;$("pStreak").textContent=stats.best;$("accuracy").textContent=stats.seen?Math.round(stats.correct/stats.seen*100)+"%":"0%"}
 function view(v){["quiz","progress","list"].forEach(x=>$(x).classList.toggle("hidden",x!==v));["quizNav","progressNav","listNav"].forEach(x=>$(x).classList.remove("active"));$(v+"Nav").classList.add("active");if(v==="progress")update();if(v==="list")renderList()}
 function renderList(){let q=$("search").value.toLowerCase();$("tbody").innerHTML=words.filter(w=>w.join(" ").toLowerCase().includes(q)).map(w=>`<tr><td>${w[0]}</td><td>${w[1]}</td><td>${w[2]}</td><td>${w[3]}</td></tr>`).join("")}

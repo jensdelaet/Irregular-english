@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4f67ff">
+<link rel="manifest" href="manifest.json">
+<title>Irregular English</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--text:#172033;--muted:#6b7280;--primary:#4f67ff;--primary2:#394bd0;--good:#18864b;--bad:#c83b45;--line:#e5e8ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input{font:inherit}button{border:0;cursor:pointer}.app{max-width:900px;margin:auto;padding:16px 16px 40px}
+header{background:linear-gradient(135deg,#172033,#4f67ff);color:#fff;border-radius:28px;padding:24px;margin-bottom:14px;box-shadow:0 12px 35px #24305a22}
+h1{margin:0;font-size:32px}header p{margin:5px 0 0;opacity:.8}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}.stat{background:#ffffff18;border-radius:15px;padding:10px;text-align:center}.stat b{font-size:20px;display:block}.stat small{opacity:.75}
+nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}nav button,.secondary{background:#fff;color:var(--text);padding:12px;border-radius:14px;font-weight:750;box-shadow:0 4px 15px #1720330c}nav button.active{background:var(--primary);color:#fff}
+.card{background:var(--card);border-radius:22px;padding:22px;box-shadow:0 7px 25px #1720330d;margin-bottom:14px}.hidden{display:none}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.levels button{padding:12px;border-radius:13px;background:#eef0f6;font-weight:750}.levels button.active{background:#e7eaff;color:#3e50d5;outline:2px solid #cbd2ff}
+.progress{height:9px;background:#e9ebf1;border-radius:99px;overflow:hidden;margin:16px 0}.bar{height:100%;background:var(--primary);width:0;transition:.2s}
+.badge{display:inline-block;background:#eef0ff;color:#4052d4;padding:6px 10px;border-radius:99px;font-size:13px;font-weight:800}.question{font-size:31px;font-weight:850;margin:13px 0 2px}.forms{display:grid;grid-template-columns:1fr 1fr;gap:10px}.formbox{background:#f7f8fc;border:1px solid var(--line);padding:13px;border-radius:14px}.formbox label{display:block;font-size:12px;color:var(--muted);font-weight:750;margin-bottom:5px}.formbox input{width:100%;border:2px solid #e0e4ec;border-radius:10px;padding:11px;background:#fff}.formbox input:focus{outline:none;border-color:var(--primary)}
+.actions{display:flex;gap:9px;margin-top:14px}.primary{background:var(--primary);color:#fff;padding:13px 18px;border-radius:13px;font-weight:800;flex:1}.secondary{flex:1}.feedback{margin-top:13px;padding:14px;border-radius:14px;font-weight:700}.good{background:#eaf8f0;color:var(--good)}.bad{background:#fff0f1;color:var(--bad)}
+.small{color:var(--muted);font-size:14px}.center{text-align:center}.big{font-size:42px;font-weight:900}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f7f8fc;border-radius:16px;padding:16px}.tile b{font-size:22px;display:block}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.search{width:100%;padding:13px;border:2px solid var(--line);border-radius:12px;margin-bottom:12px}
+#install{display:none;margin-bottom:14px}.install{background:#172033;color:#fff;padding:13px 16px;border-radius:14px;width:100%;font-weight:800}
+@media(max-width:600px){.app{padding:10px}.stats{grid-template-columns:repeat(2,1fr)}.forms{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.question{font-size:27px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+<h1>Irregular English 🇬🇧</h1><p>Oefen Engelse onregelmatige werkwoorden</p>
+<div class="stats">
+<div class="stat"><b id="score">0</b><small>score</small></div>
+<div class="stat"><b id="streak">0</b><small>reeks</small></div>
+<div class="stat"><b id="correct">0</b><small>goed totaal</small></div>
+<div class="stat"><b id="wrong">0</b><small>fouten</small></div>
+</div>
+</header>
+<div id="install"><button class="install" id="installBtn">📲 Installeer de app op dit apparaat</button></div>
+<nav>
+<button id="quizNav" class="active" onclick="view('quiz')">🎯 Oefenen</button>
+<button id="progressNav" onclick="view('progress')">📊 Voortgang</button>
+<button id="listNav" onclick="view('list')">📚 Woorden</button>
+</nav>
+
+<section id="quiz">
+<div class="card">
+<div class="small">Kies je niveau</div>
+<div class="levels" style="margin-top:8px">
+<button id="easy" onclick="setLevel('easy')">🟢 Basis</button>
+<button id="medium" onclick="setLevel('medium')">🟠 Gemiddeld</button>
+<button id="hard" onclick="setLevel('hard')">🔴 Uitdaging</button>
+</div>
+<div class="actions">
+<button class="secondary" onclick="startMistakes()">🔁 Mijn fouten</button>
+<button class="secondary" onclick="startDaily()">⭐ Dagelijks</button>
+</div>
+</div>
+<div class="card">
+<span class="badge" id="mode">Basis</span>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="small" id="counter"></div>
+<div class="question" id="nl"></div>
+<div class="small">Infinitive: <b id="inf"></b></div>
+<p class="small">Vul de <b>Past Simple</b> en <b>Past Participle</b> in.</p>
+<div class="forms">
+<div class="formbox"><label>PAST SIMPLE</label><input id="past" autocomplete="off"></div>
+<div class="formbox"><label>PAST PARTICIPLE</label><input id="part" autocomplete="off"></div>
+</div>
+<div id="feedback"></div>
+<div class="actions">
+<button class="primary" id="check" onclick="check()">Controleer</button>
+<button class="secondary" onclick="next()">Volgende</button>
+</div>
+</div>
+</section>
+
+<section id="progress" class="hidden">
+<div class="card center"><div class="big" id="accuracy">0%</div><div class="small">juist beantwoord</div></div>
+<div class="grid2">
+<div class="tile"><b id="pCorrect">0</b>Correct</div><div class="tile"><b id="pWrong">0</b>Fout</div>
+<div class="tile"><b id="pSeen">0</b>Vragen gemaakt</div><div class="tile"><b id="pStreak">0</b>Beste reeks</div>
+</div>
+<div class="card" style="margin-top:14px"><h3>💡 Tip</h3><p class="small">Oefen vooral je fouten opnieuw. Korte dagelijkse sessies werken beter dan één lange sessie.</p><button class="primary" onclick="startMistakes();view('quiz')">Mijn fouten oefenen</button></div>
+</section>
+
+<section id="list" class="hidden">
+<div class="card"><h2>Woordenlijst</h2><input class="search" id="search" placeholder="Zoek..." oninput="renderList()">
+<table><thead><tr><th>Nederlands</th><th>Infinitive</th><th>Past</th><th>Participle</th></tr></thead><tbody id="tbody"></tbody></table></div>
+</section>
+</div>
+
+<script>
+const words=[
+["zijn","be","was/were","been"],["worden","become","became","become"],["beginnen","begin","began","begun"],["bijten","bite","bit","bitten"],["blazen","blow","blew","blown"],["breken","break","broke","broken"],["brengen","bring","brought","brought"],["bouwen","build","built","built"],["kopen","buy","bought","bought"],["vangen","catch","caught","caught"],["kiezen","choose","chose","chosen"],["komen","come","came","come"],["kosten","cost","cost","cost"],["snijden","cut","cut","cut"],["doen","do","did","done"],["tekenen","draw","drew","drawn"],["drinken","drink","drank","drunk"],["rijden","drive","drove","driven"],["eten","eat","ate","eaten"],["vallen","fall","fell","fallen"],["voelen","feel","felt","felt"],["vechten","fight","fought","fought"],["vinden","find","found","found"],["vliegen","fly","flew","flown"],["vergeten","forget","forgot","forgotten"],["krijgen","get","got","got/gotten"],["geven","give","gave","given"],["gaan","go","went","gone"],["groeien","grow","grew","grown"],["hebben","have","had","had"],["horen","hear","heard","heard"],["houden","hold","held","held"],["weten","know","knew","known"],["leren","learn","learnt/learned","learnt/learned"],["verlaten","leave","left","left"],["lenen","lend","lent","lent"],["verliezen","lose","lost","lost"],["maken","make","made","made"],["betekenen","mean","meant","meant"],["ontmoeten","meet","met","met"],["betalen","pay","paid","paid"],["zetten","put","put","put"],["lezen","read","read","read"],["rijden","ride","rode","ridden"],["rennen","run","ran","run"],["zeggen","say","said","said"],["zien","see","saw","seen"],["verkopen","sell","sold","sold"],["sturen","send","sent","sent"],["zingen","sing","sang","sung"],["zitten","sit","sat","sat"],["slapen","sleep","slept","slept"],["spreken","speak","spoke","spoken"],["staan","stand","stood","stood"],["zwemmen","swim","swam","swum"],["nemen","take","took","taken"],["onderwijzen","teach","taught","taught"],["vertellen","tell","told","told"],["denken","think","thought","thought"],["begrijpen","understand","understood","understood"],["dragen","wear","wore","worn"],["winnen","win","won","won"],["schrijven","write","wrote","written"]];
+const easy=new Set(["be","become","begin","break","bring","build","buy","come","do","drink","eat","find","get","give","go","have","hear","know","make","meet","read","run","say","see","take","think","write"]);
+let level="easy",mode="normal",order=[],idx=0,answered=false,score=0,streak=0,best=0;
+let stats=JSON.parse(localStorage.getItem("ie_stats")||'{"correct":0,"wrong":0,"seen":0,"best":0}');
+const $=x=>document.getElementById(x);
+const shuffle=a=>[...a].sort(()=>Math.random()-.5);
+const norm=s=>s.trim().toLowerCase().replace(/\s+/g,"");
+function ok(v,a){return a.split("/").some(x=>norm(v)===norm(x))}
+function save(){localStorage.setItem("ie_stats",JSON.stringify(stats))}
+function pool(){if(mode==="mistakes"){let b=JSON.parse(localStorage.getItem("ie_mistakes")||"[]");return b.length?words.filter(w=>b.includes(w[1])):words} if(level==="easy")return words.filter(w=>easy.has(w[1]));if(level==="hard")return words.filter(w=>!easy.has(w[1]));return words}
+function start(){mode="normal";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent=level==="easy"?"Basis":level==="medium"?"Gemiddeld":"Uitdaging";load();update()}
+function setLevel(x){level=x;document.querySelectorAll(".levels button").forEach(b=>b.classList.remove("active"));$(x).classList.add("active");start()}
+function startMistakes(){mode="mistakes";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent="Mijn fouten";load();update()}
+function startDaily(){mode="daily";order=shuffle(words).slice(0,10);idx=0;score=0;streak=0;answered=false;$("mode").textContent="⭐ Dagelijkse uitdaging";load();update()}
+function load(){if(!order.length){$("nl").textContent="Nog geen fouten om te oefenen.";return}let w=order[idx];answered=false;$("nl").textContent=w[0];$("inf").textContent=w[1];$("counter").textContent=`Vraag ${idx+1} van ${order.length}`;$("bar").style.width=((idx+1)/order.length*100)+"%";$("past").value="";$("part").value="";$("past").disabled=false;$("part").disabled=false;$("feedback").innerHTML="";$("check").textContent="Controleer";$("past").focus()}
+function check(){if(answered)return next();let w=order[idx],good=ok($("past").value,w[2])&&ok($("part").value,w[3]);answered=true;stats.seen++;if(good){score+=10+streak;streak++;best=Math.max(best,streak);stats.correct++;stats.best=Math.max(stats.best,streak);$("feedback").innerHTML=`<div class="feedback good">✓ Goed! +${10+streak-1} punten</div>`}else{streak=0;stats.wrong++;let a=JSON.parse(localStorage.getItem("ie_mistakes")||"[]");if(!a.includes(w[1]))a.push(w[1]);localStorage.setItem("ie_mistakes",JSON.stringify(a));$("feedback").innerHTML=`<div class="feedback bad">✗ Het antwoord is <b>${w[2]}</b> – <b>${w[3]}</b></div>`}save();$("past").disabled=true;$("part").disabled=true;$("check").textContent="Volgende";update()}
+function next(){if(!answered){check();return}idx++;if(idx>=order.length){alert(`Klaar! Je score: ${score}.`);start()}else load()}
+function update(){$("score").textContent=score;$("streak").textContent=streak;$("correct").textContent=stats.correct;$("wrong").textContent=stats.wrong;$("pCorrect").textContent=stats.correct;$("pWrong").textContent=stats.wrong;$("pSeen").textContent=stats.seen;$("pStreak").textContent=stats.best;$("accuracy").textContent=stats.seen?Math.round(stats.correct/stats.seen*100)+"%":"0%"}
+function view(v){["quiz","progress","list"].forEach(x=>$(x).classList.toggle("hidden",x!==v));["quizNav","progressNav","listNav"].forEach(x=>$(x).classList.remove("active"));$(v+"Nav").classList.add("active");if(v==="progress")update();if(v==="list")renderList()}
+function renderList(){let q=$("search").value.toLowerCase();$("tbody").innerHTML=words.filter(w=>w.join(" ").toLowerCase().includes(q)).map(w=>`<tr><td>${w[0]}</td><td>${w[1]}</td><td>${w[2]}</td><td>${w[3]}</td></tr>`).join("")}
+["past","part"].forEach(id=>$(id).addEventListener("keydown",e=>{if(e.key==="Enter")check()}));
+let deferred;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("install").style.display="block";$("installBtn").onclick=async()=>{deferred.prompt();deferred=null;$("install").style.display="none"}});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+$("easy").classList.add("active");start();renderList();
+</script>
+</body></html>

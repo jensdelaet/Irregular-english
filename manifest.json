@@ -1,0 +1,9 @@
+{
+  "name": "Irregular English",
+  "short_name": "Irregular English",
+  "start_url": "./irregular_english.html",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#4f67ff",
+  "lang": "nl"
+}

@@ -38,7 +38,21 @@ const easy=new Set(["be","become","begin","break","bring","build","buy","come","
 let level="easy",mode="normal",order=[],idx=0,answered=false,score=0,streak=0;
 let stats=JSON.parse(localStorage.getItem("ie_stats")||'{"correct":0,"wrong":0,"seen":0,"best":0}');
 const $=x=>document.getElementById(x),shuffle=a=>[...a].sort(()=>Math.random()-.5),norm=s=>s.trim().toLowerCase().replace(/\\s+/g,"").replace(/[’']/g,"'");
-function ok(v,a){return (a||"—").split("/").some(x=>norm(v)===norm(x)) || ((a||"—")==="—" && !v.trim())}
+function ok(v,a){
+
+  const answer = norm(v);
+
+  const correct = a || "—";
+
+  if(correct === "—") return !v.trim();
+
+  return correct.split("/").some(x => norm(x) === answer)
+
+    || norm(correct) === answer;
+
+}
+
+  
 function save(){localStorage.setItem("ie_stats",JSON.stringify(stats))}
 function pool(){if(mode==="mistakes"){let b=JSON.parse(localStorage.getItem("ie_mistakes")||"[]");return b.length?words.filter(w=>b.includes(w[1])):words}if(level==="easy")return words.filter(w=>easy.has(w[1].toLowerCase()));if(level==="hard")return words.filter(w=>!easy.has(w[1].toLowerCase()));return words}
 function start(){mode="normal";order=shuffle(pool());idx=0;score=0;streak=0;answered=false;$("mode").textContent=level==="easy"?"Beginner":level==="medium"?"Intermediate":"Advanced";load();update()}

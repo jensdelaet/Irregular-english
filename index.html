@@ -23,6 +23,7 @@ nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 </style>
 </head>
 <body><div class="app">
+    <header><h1>Irregular English 🇬🇧</h1>
 <div class="stats"><div class="stat"><b id="score">0</b><small>score</small></div><div class="stat"><b id="streak">0</b><small>streak</small></div><div class="stat"><b id="correct">0</b><small>correct answers</small></div><div class="stat"><b id="wrong">0</b><small>mistakes</small></div></div></header>
 <nav><button id="quizNav" class="active" onclick="view('quiz')">🎯 Practice</button><button id="progressNav" onclick="view('progress')">📊 Progress</button><button id="listNav" onclick="view('list')">📚 Word List</button></nav>
 <section id="quiz"><div class="card"><div class="small">Choose your level</div><div class="levels" style="margin-top:8px"><button id="easy" onclick="setLevel('easy')">🟢 Beginner</button><button id="medium" onclick="setLevel('medium')">🟠 Intermediate</button><button id="hard" onclick="setLevel('hard')">🔴 Advanced</button></div><div class="actions"><button class="secondary" onclick="startMistakes()">🔁 My Mistakes</button><button class="secondary" onclick="startDaily()">⭐ Daily Challenge</button></div></div>
